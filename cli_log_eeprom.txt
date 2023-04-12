@@ -1,0 +1,218 @@
+Username : root
+Password : root
+CLI:/>
+CLI:/> list
+exit
+help
+clear
+list
+read-eeprom
+write-eeprom
+get-mac
+set-mac
+get-model
+set-model
+change-password
+reset-password
+set-serial-number
+get-serial-number
+//COMMAND USAGE CHECK //
+CLI:/>
+CLI:/> read-eeprom
+
+Usage: read-eeprom <Offset to read> <Number of bytes>
+CLI:/> write-eeprom
+
+Usage: write-eeprom <password> <Offset to write> <Data to write>
+CLI:/> get-mac
+
+Usage: get-mac <port-number (eth0/eth1/eth2)>
+CLI:/> set-mac
+
+Usage: set-mac <password> <port(eth0/eth1/eth2)> <mac-address>
+CLI:/> get-model lx
+
+Usage: get-model
+CLI:/> set-model
+
+Usage: set-model <model-number> <password>
+CLI:/> change-password
+
+Usage: change-password <old-password> <new-password>
+
+CLI:/> reset-password vvdn
+
+Usage: reset-password
+
+ECLI:/> set-serial-number
+
+Usage: set-serial-number <password> <serial-number>
+CLI:/> get-serial-number vvdn
+
+Usage: get-serial-number
+CLI:/>
+
+//WRITE EEPROM //
+CLI:/> write-eeprom vvdn 40000 endcheck
+
+Provide Offset between 0 to 32767
+Not in range to write .. Provide valid option
+CLI:/>
+CLI:/> write-eeprom -3 negative
+
+Usage: write-eeprom <password> <Offset to write> <Data to write>
+CLI:/> write-eeprom vvdn -3 negative
+
+Provide Offset between 0 to 32767
+Not in range to write .. Provide valid option
+CLI:/>
+CLI:/> write-eeprom s alphabet
+
+Usage: write-eeprom <password> <Offset to write> <Data to write>
+CLI:/> write-eeprom vvdn s alphabet
+
+Offset must be an integer
+CLI:/>
+CLI:/> write-eeprom vvdn & specialcharacter
+
+Offset must be an integer
+CLI:/> write-eeprom vvdn 100 testing
+CLI:/> read-eeprom 100 10
+
+HEX | CHAR
+74 | t
+65 | e
+73 | s
+74 | t
+69 | i
+6e | n
+67 | g
+6e | n
+d |
+a |
+
+CLI:/> write-eeprom vvdn 50 reserved
+
+The offset provided is reserved..
+CLI:/> write-eeprom vvdn 502 reserved
+
+The offset provided is reserved..
+CLI:/> write-eeprom root 100 wrongpword
+
+Invalid Password
+CLI:/>
+// MODEL NUMBER COMMANDS //
+CLI:/> set-model vvdn X-LA1224-RDB-B
+CLI:/> get-model
+X-LA1224-RDB-B
+CLI:/> set-model vvdn lx2160
+
+Invalid Model number
+
+CLI:/>
+CLI:/>
+//MAC ADDRESS COMMANDS//
+CLI:/> set-mac vvdn eth1 01:23:45:67:89:ab
+CLI:/> get-mac eth1
+01:23:45:67:89:ab
+CLI:/> set-mac vvdn eth0 00:00:5e:00:53:af
+CLI:/> get-mac eth0
+00:00:5e:00:53:af
+CLI:/> set-mac vvdn eth2 42:4a:7e:72:60:09
+CLI:/> get-mac eth2
+42:4a:7e:72:60:09
+CLI:/>
+CLI:/>
+CLI:/> set-mac vvdn eth3 aa-bb-cc-dd-ee-ff
+
+Provide valid port number
+CLI:/>
+CLI:/> set-mac vvdn eth0 aa"bb"cc"dd"ee"ff
+
+Invalid MAC address
+CLI:/> set-mac vvdn eth0 132:ux:32
+
+Invalid MAC address
+CLI:/>
+//SERIAL NUMBER COMMANDS //
+CLI:/> set-serial-number vvdn 00486030
+CLI:/> get-serial-number
+56486030
+//READ EEPROM COMMANDS //
+CLI:/>
+CLI:/> read-eeprom 17 17
+
+HEX | CHAR
+38 | 8
+36 | 6
+30 | 0
+33 | 3
+30 | 0
+30 | 0
+30 | 0
+3a | :
+30 | 0
+30 | 0
+3a | :
+35 | 5
+65 | e
+3a | :
+30 | 0
+30 | 0
+3a | :
+CLI:/>
+CLI:/> read-eeprom 90 8
+
+HEX | CHAR
+6f | o
+66 | f
+66 | f
+3e | >
+62 | b
+79 | y
+74 | t
+65 | e
+CLI:/>
+CLI:/>
+CLI:/> read-eeprom 5 8
+
+HEX | CHAR
+32 | 2
+32 | 2
+34 | 4
+2d | -
+52 | R
+44 | D
+42 | B
+2d | -
+CLI:/> read-eeprom 100 0
+
+Bytes cannot be 0..Please provide a non-zero value
+CLI:/>
+CLI:/> read-eeprom , 2
+
+Offset and Bytes must be an integer
+CLI:/> read-eeprom 2 '
+
+Offset and Bytes must be an integer
+//PASSWORD COMMANDS//
+CLI:/>
+CLI:/> set-mac vvdn eth1 01:23:45:67:89:ab
+CLI:/>
+CLI:/> change-password vvdn root
+CLI:/>
+CLI:/> set-mac vvdn eth1 01:23:45:67:89:ab
+
+Invalid Password
+CLI:/>
+CLI:/> set-mac root eth1 01:23:45:67:89:ab
+CLI:/>
+CLI:/> reset-password
+CLI:/>
+CLI:/> set-mac root eth1 01:23:45:67:89:ab
+
+Invalid Password
+CLI:/>
+CLI:/> set-mac vvdn eth1 01:23:45:67:89:ab
+CLI:/>
+CLI:/>
